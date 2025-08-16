@@ -135,7 +135,7 @@ const Membership = () => {
                   className={`w-full py-2 px-4 rounded-lg transition-all duration-300 relative z-10 ${
                     isUserPlan
                       ? "bg-gray-500/50 text-gray-300 cursor-not-allowed relative group backdrop-blur-sm"
-                      : "bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700"
+                      : "bg-gradient-to-r from-indigo-500 cursor-pointer to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700"
                   }`}
                 >
                   {isUserPlan ? (

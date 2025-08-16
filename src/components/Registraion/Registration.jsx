@@ -62,7 +62,6 @@ const Registration = () => {
       });
   };
 
-
   const handleGoogleSignup = () => {
     googleUser()
       .then(async (res) => {
@@ -91,28 +90,31 @@ const Registration = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-blue-200 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-black flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="bg-white shadow-xl rounded-2xl w-full max-w-lg p-8"
+        className="bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl w-full max-w-lg p-8 border border-white/20 hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] transition-all duration-300 relative overflow-hidden"
       >
-        <h2 className="text-3xl font-bold text-center mb-6 text-indigo-600">
+        {/* Glowing effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+
+        <h2 className="text-3xl font-bold text-center mb-6 text-white drop-shadow-lg relative z-10">
           Create Your Account
         </h2>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 relative z-10">
           {/* Full Name */}
           <div>
             <input
               type="text"
               placeholder="Full Name"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 text-white placeholder-gray-400"
               {...register("fullName", { required: "Full name is required" })}
             />
             {errors.fullName && (
-              <p className="text-red-500 text-sm">{errors.fullName.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
             )}
           </div>
 
@@ -121,7 +123,7 @@ const Registration = () => {
             <input
               type="email"
               placeholder="Email"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 text-white placeholder-gray-400"
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -131,7 +133,7 @@ const Registration = () => {
               })}
             />
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
             )}
           </div>
 
@@ -140,7 +142,7 @@ const Registration = () => {
             <input
               type="url"
               placeholder="Photo URL"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 text-white placeholder-gray-400"
               {...register("photoURL", {
                 required: "Photo URL is required",
                 pattern: {
@@ -150,7 +152,7 @@ const Registration = () => {
               })}
             />
             {errors.photoURL && (
-              <p className="text-red-500 text-sm">{errors.photoURL.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.photoURL.message}</p>
             )}
           </div>
 
@@ -159,7 +161,7 @@ const Registration = () => {
             <input
               type="password"
               placeholder="Password"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 text-white placeholder-gray-400"
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -169,7 +171,7 @@ const Registration = () => {
               })}
             />
             {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
             )}
           </div>
 
@@ -178,16 +180,14 @@ const Registration = () => {
             <input
               type="password"
               placeholder="Confirm Password"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 text-white placeholder-gray-400"
               {...register("confirmPassword", {
                 validate: (value) =>
                   value === watch("password") || "Passwords do not match",
               })}
             />
             {errors.confirmPassword && (
-              <p className="text-red-500 text-sm">
-                {errors.confirmPassword.message}
-              </p>
+              <p className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</p>
             )}
           </div>
 
@@ -196,32 +196,32 @@ const Registration = () => {
             <input
               type="checkbox"
               {...register("terms", { required: "You must accept the terms" })}
-              className="mt-1 w-4 h-4 accent-indigo-600"
+              className="mt-1 w-4 h-4 accent-indigo-400"
             />
-            <label className="text-sm text-gray-700">
+            <label className="text-sm text-gray-300">
               I agree to the{" "}
               <Link
                 to="/terms"
-                className="underline text-indigo-600 hover:text-indigo-800"
+                className="underline text-indigo-300 hover:text-indigo-200"
               >
                 Terms
               </Link>{" "}
               and{" "}
               <Link
                 to="/privacy"
-                className="underline text-indigo-600 hover:text-indigo-800"
+                className="underline text-indigo-300 hover:text-indigo-200"
               >
                 Privacy Policy
               </Link>
             </label>
           </div>
           {errors.terms && (
-            <p className="text-red-500 text-sm">{errors.terms.message}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.terms.message}</p>
           )}
 
           <button
             type="submit"
-            className="bg-indigo-600 hover:bg-indigo-700 text-white w-full py-3 rounded-md transition"
+            className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-md hover:from-indigo-600 hover:to-purple-700 transition-all duration-300"
           >
             Register
           </button>
@@ -229,26 +229,26 @@ const Registration = () => {
 
         <div className="relative my-6 text-center">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300" />
+            <div className="w-full border-t border-white/20" />
           </div>
-          <div className="relative bg-white px-3 text-gray-500 text-sm">
+          <div className="relative bg-transparent px-3 text-gray-300 text-sm">
             Or continue with
           </div>
         </div>
 
         <button
           onClick={handleGoogleSignup}
-          className="flex items-center justify-center gap-3 w-full py-2 border rounded-md hover:bg-gray-100 transition"
+          className="flex items-center justify-center gap-3 w-full py-2 bg-white/5 border border-white/20 rounded-md hover:bg-white/10 transition-all duration-300 text-white"
         >
-          <FaGoogle className="text-lg text-red-500" />
+          <FaGoogle className="text-lg text-red-400" />
           <span className="font-medium">Continue with Google</span>
         </button>
 
-        <p className="text-sm text-center text-gray-600 mt-6">
+        <p className="text-sm text-center text-gray-300 mt-6">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-indigo-600 underline hover:text-indigo-800"
+            className="text-indigo-300 underline hover:text-indigo-200"
           >
             Login
           </Link>
