@@ -14,7 +14,7 @@ import {
   Legend,
 } from 'recharts';
 
-const COLORS = ['#6366f1', '#f59e0b', '#10b981'];
+const COLORS = ['#4b5e8e', '#6b4b8e', '#4b8e7d'];
 
 const AdminProfile = () => {
   const { user } = UseAuthHook();
@@ -55,17 +55,17 @@ const AdminProfile = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-[#1e293b] to-[#0f172a] p-6 text-white font-sans">
+    <section className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] p-6 text-gray-200 font-sans">
       <div
-        className="max-w-4xl mx-auto bg-[#1f2937] rounded-xl shadow-lg p-6 md:p-10"
+        className="max-w-4xl mx-auto bg-[rgba(30,41,59,0.3)] backdrop-blur-md rounded-xl shadow-2xl p-6 md:p-10 border border-[rgba(255,255,255,0.05)]"
         data-aos="fade-up"
       >
-        <h2 className="text-3xl font-bold mb-6 text-center text-indigo-400">
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-100">
           👑 Admin Profile
         </h2>
 
         <div className="flex flex-col md:flex-row items-center gap-8">
-          <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-indigo-500 shadow-lg">
+          <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-[rgba(99,102,241,0.3)] shadow-lg">
             <img
               src={user?.photoURL || 'https://i.ibb.co/Yt3v5Q5/default-user.png'}
               alt="Admin"
@@ -75,31 +75,31 @@ const AdminProfile = () => {
 
           <div className="flex-1 space-y-3">
             <p className="flex items-center gap-3 text-lg">
-              <FaUser className="text-indigo-400" /> {user?.displayName || 'N/A'}
+              <FaUser className="text-gray-400" /> {user?.displayName || 'N/A'}
             </p>
             <p className="flex items-center gap-3 text-lg">
-              <FaEnvelope className="text-indigo-400" /> {user?.email}
+              <FaEnvelope className="text-gray-400" /> {user?.email}
             </p>
             <p className="flex items-center gap-3 text-lg">
-              <FaPenFancy className="text-indigo-400" /> My Posts: <span>{myPostCount}</span>
+              <FaPenFancy className="text-gray-400" /> My Posts: <span>{myPostCount}</span>
               <button
                 onClick={() => navigate('/admin-posts')}
-                className="ml-4 px-3 py-1 bg-indigo-500 hover:bg-indigo-600 transition text-sm rounded text-white shadow-md"
+                className="ml-4 px-3 py-1 bg-[rgba(99,102,241,0.5)] backdrop-blur-md hover:bg-[rgba(99,102,241,0.7)] transition text-sm rounded-lg text-gray-100 shadow-md border border-[rgba(255,255,255,0.1)]"
               >
                 Show Posts
               </button>
             </p>
             <p className="flex items-center gap-3 text-lg">
-              <FaComments className="text-indigo-400" /> My Comments: {myCommentsCount}
+              <FaComments className="text-gray-400" /> My Comments: {myCommentsCount}
             </p>
             <p className="flex items-center gap-3 text-lg">
-              <FaUsers className="text-indigo-400" /> Total Users: {users.length}
+              <FaUsers className="text-gray-400" /> Total Users: {users.length}
             </p>
           </div>
         </div>
 
         <div className="mt-12">
-          <h3 className="text-2xl font-semibold mb-4 text-center text-indigo-300">
+          <h3 className="text-2xl font-semibold mb-4 text-center text-gray-100">
             📊 Site Overview
           </h3>
           <div className="max-w-sm mx-auto">
@@ -111,15 +111,14 @@ const AdminProfile = () => {
                   nameKey="name"
                   outerRadius={100}
                   innerRadius={50}
-                  fill="#8884d8"
                   label
                 >
                   {chartData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip />
-                <Legend />
+                <Tooltip contentStyle={{ backgroundColor: 'rgba(30,41,59,0.8)', border: '1px solid rgba(255,255,255,0.1)', color: '#e5e7eb' }} />
+                <Legend wrapperStyle={{ color: '#e5e7eb' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>

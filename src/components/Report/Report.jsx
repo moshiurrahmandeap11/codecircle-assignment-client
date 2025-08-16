@@ -78,95 +78,97 @@ const Report = () => {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedReports = reports.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-  if (loading) return <p className="text-center text-indigo-500 font-semibold mt-10">Loading reports...</p>;
+  if (loading) return <p className="text-center text-gray-400 font-semibold mt-10">Loading reports...</p>;
   if (reports.length === 0)
-    return <p className="text-center text-gray-500 italic mt-10">No reports found.</p>;
+    return <p className="text-center text-gray-400 italic mt-10">No reports found.</p>;
 
   return (
-    <div className="overflow-x-auto mt-8 px-2 md:px-8" data-aos="fade-up">
-      <table className="min-w-full text-sm border border-gray-300 bg-white rounded-lg shadow-md overflow-hidden">
-        <thead className="bg-gradient-to-r from-indigo-400 to-violet-500 text-white uppercase text-xs">
-          <tr>
-            <th className="px-4 py-3 border">#</th>
-            <th className="px-4 py-3 border">Comment</th>
-            <th className="px-4 py-3 border">Commenter</th>
-            <th className="px-4 py-3 border">Reported By</th>
-            <th className="px-4 py-3 border">Feedback</th>
-            <th className="px-4 py-3 border">Reported At</th>
-            <th className="px-4 py-3 border">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedReports.map((report, index) => (
-            <tr
-              key={report._id}
-              className="text-center hover:bg-indigo-50 transition-all duration-200"
-              data-aos="zoom-in-up"
-            >
-              <td className="px-4 py-2 border font-semibold text-gray-700">{startIndex + index + 1}</td>
-              <td className="px-4 py-2 border max-w-xs break-words text-gray-800">{report.commentText}</td>
-              <td className="px-4 py-2 border text-indigo-700">{report.commenterEmail}</td>
-              <td className="px-4 py-2 border text-pink-600">{report.reportedBy}</td>
-              <td className="px-4 py-2 border italic text-gray-600">{report.feedback}</td>
-              <td className="px-4 py-2 border text-xs text-gray-500">
-                {new Date(report.reportedAt).toLocaleString()}
-              </td>
-              <td className="px-4 py-2 border space-y-1">
-                <button
-                  onClick={() => giveWarning(report.commenterEmail)}
-                  className="bg-yellow-300 hover:bg-yellow-400 text-xs px-2 py-1 rounded text-black w-full"
-                >
-                   Give Warning
-                </button>
-                <button
-                  onClick={() => snoozeAccount(report.reportedBy)}
-                  className="bg-orange-400 hover:bg-orange-500 text-xs px-2 py-1 rounded text-white w-full"
-                >
-                   Snooze Account
-                </button>
-                <button
-                  onClick={() => deleteAccount(report.reportedBy)}
-                  className="bg-red-500 hover:bg-red-600 text-xs px-2 py-1 rounded text-white w-full"
-                >
-                  Delete Account
-                </button>
-              </td>
+    <div className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] p-6 text-gray-200 font-sans">
+      <div className="overflow-x-auto mt-8 px-2 md:px-8" data-aos="fade-up">
+        <table className="min-w-full text-sm bg-[rgba(30,41,59,0.3)] backdrop-blur-md rounded-xl border border-[rgba(255,255,255,0.05)] shadow-2xl">
+          <thead className="bg-[rgba(17,24,39,0.5)] backdrop-blur-md text-left text-xs uppercase tracking-wide select-none text-gray-100">
+            <tr>
+              <th className="px-4 py-3 border border-[rgba(255,255,255,0.05)]">#</th>
+              <th className="px-4 py-3 border border-[rgba(255,255,255,0.05)]">Comment</th>
+              <th className="px-4 py-3 border border-[rgba(255,255,255,0.05)]">Commenter</th>
+              <th className="px-4 py-3 border border-[rgba(255,255,255,0.05)]">Reported By</th>
+              <th className="px-4 py-3 border border-[rgba(255,255,255,0.05)]">Feedback</th>
+              <th className="px-4 py-3 border border-[rgba(255,255,255,0.05)]">Reported At</th>
+              <th className="px-4 py-3 border border-[rgba(255,255,255,0.05)]">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {paginatedReports.map((report, index) => (
+              <tr
+                key={report._id}
+                className="text-center hover:bg-[rgba(45,55,72,0.4)] transition-all duration-200 border-b border-[rgba(255,255,255,0.05)]"
+                data-aos="zoom-in-up"
+              >
+                <td className="px-4 py-2 border border-[rgba(255,255,255,0.05)] font-semibold text-gray-300">{startIndex + index + 1}</td>
+                <td className="px-4 py-2 border border-[rgba(255,255,255,0.05)] max-w-xs break-words text-gray-100">{report.commentText}</td>
+                <td className="px-4 py-2 border border-[rgba(255,255,255,0.05)] text-gray-200">{report.commenterEmail}</td>
+                <td className="px-4 py-2 border border-[rgba(255,255,255,0.05)] text-gray-200">{report.reportedBy}</td>
+                <td className="px-4 py-2 border border-[rgba(255,255,255,0.05)] italic text-gray-300">{report.feedback}</td>
+                <td className="px-4 py-2 border border-[rgba(255,255,255,0.05)] text-xs text-gray-400">
+                  {new Date(report.reportedAt).toLocaleString()}
+                </td>
+                <td className="px-4 py-2 border border-[rgba(255,255,255,0.05)] space-y-2">
+                  <button
+                    onClick={() => giveWarning(report.commenterEmail)}
+                    className="bg-[rgba(234,179,8,0.5)] backdrop-blur-md hover:bg-[rgba(234,179,8,0.7)] text-gray-100 text-xs px-3 py-1 rounded-lg w-full transition-colors border border-[rgba(255,255,255,0.1)]"
+                  >
+                    Give Warning
+                  </button>
+                  <button
+                    onClick={() => snoozeAccount(report.reportedBy)}
+                    className="bg-[rgba(249,115,22,0.5)] backdrop-blur-md hover:bg-[rgba(249,115,22,0.7)] text-gray-100 text-xs px-3 py-1 rounded-lg w-full transition-colors border border-[rgba(255,255,255,0.1)]"
+                  >
+                    Snooze Account
+                  </button>
+                  <button
+                    onClick={() => deleteAccount(report.reportedBy)}
+                    className="bg-[rgba(220,38,38,0.5)] backdrop-blur-md hover:bg-[rgba(220,38,38,0.7)] text-gray-100 text-xs px-3 py-1 rounded-lg w-full transition-colors border border-[rgba(255,255,255,0.1)]"
+                  >
+                    Delete Account
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      {/* Pagination Controls */}
-      <div className="flex justify-center items-center gap-2 mt-6 flex-wrap" data-aos="fade-up">
-        <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          className="px-3 py-1 rounded border bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
-        >
-          ⬅ Prev
-        </button>
-
-        {[...Array(totalPages)].map((_, idx) => (
+        {/* Pagination Controls */}
+        <div className="flex justify-center items-center gap-2 mt-6 flex-wrap" data-aos="fade-up">
           <button
-            key={idx}
-            onClick={() => setCurrentPage(idx + 1)}
-            className={`px-3 py-1 rounded border transition-all duration-200 ${
-              currentPage === idx + 1
-                ? "bg-indigo-500 text-white font-semibold"
-                : "bg-white hover:bg-indigo-100"
-            }`}
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-3 py-1 rounded-lg bg-[rgba(30,41,59,0.5)] backdrop-blur-md hover:bg-[rgba(45,55,72,0.6)] text-gray-100 disabled:opacity-50 border border-[rgba(255,255,255,0.1)]"
           >
-            {idx + 1}
+            ⬅ Prev
           </button>
-        ))}
 
-        <button
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-          disabled={currentPage === totalPages}
-          className="px-3 py-1 rounded border bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
-        >
-          Next ➡
-        </button>
+          {[...Array(totalPages)].map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentPage(idx + 1)}
+              className={`px-3 py-1 rounded-lg transition-all duration-200 border border-[rgba(255,255,255,0.1)] ${
+                currentPage === idx + 1
+                  ? "bg-[rgba(99,102,241,0.3)] backdrop-blur-md text-gray-50 font-semibold"
+                  : "bg-[rgba(30,41,59,0.5)] backdrop-blur-md hover:bg-[rgba(45,55,72,0.6)] text-gray-100"
+              }`}
+            >
+              {idx + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className="px-3 py-1 rounded-lg bg-[rgba(30,41,59,0.5)] backdrop-blur-md hover:bg-[rgba(45,55,72,0.6)] text-gray-100 disabled:opacity-50 border border-[rgba(255,255,255,0.1)]"
+          >
+            Next ➡
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -84,11 +84,11 @@ const handleReport = async (index) => {
 
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+    <div className="max-w-4xl mx-auto p-6 bg-gradient-to-br from-slate-900/70 via-gray-900/60 to-black/80 border-2 border-transparent shadow-md rounded-lg mt-10">
       <h2 className="text-2xl font-bold mb-4 text-indigo-700">Comments</h2>
       <div className="overflow-x-auto">
-        <table className="min-w-full border">
-          <thead className="bg-indigo-100 text-indigo-700 text-sm">
+        <table className="min-w-full ">
+          <thead className=" text-indigo-700 text-sm">
             <tr>
               <th className="p-2">Email</th>
               <th className="p-2">Comment</th>
@@ -106,19 +106,20 @@ const handleReport = async (index) => {
                     : comment.commentText}
                 </td>
                 <td className="p-2">
-                  <select
-                    value={comment.selectedFeedback}
-                    onChange={(e) => handleFeedbackChange(idx, e.target.value)}
-                    className="border rounded px-2 py-1 w-full"
-                    disabled={comment.reported}
-                  >
-                    <option value="">Select feedback</option>
-                    {FEEDBACK_OPTIONS.map((option, i) => (
-                      <option key={i} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
+<select
+  value={comment.selectedFeedback}
+  onChange={(e) => handleFeedbackChange(idx, e.target.value)}
+  className="w-full px-3 py-2 rounded bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed hover:text-black "
+  disabled={comment.reported}
+>
+  <option value="" className="bg-black  ">Select feedback</option>
+  {FEEDBACK_OPTIONS.map((option, i) => (
+    <option key={i} value={option} className="bg-gray-900 text-white hover:text-black ">
+      {option}
+    </option>
+  ))}
+</select>
+
                 </td>
                 <td className="p-2 text-center">
                   <button
