@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../assets/logo.png";
-import { NavLink } from "react-router"; // 🛠️ Fixed import
+import { NavLink } from "react-router";
 import { IoMdNotifications } from "react-icons/io";
 import { Sling as Hamburger } from "hamburger-react";
 import { BiSolidDashboard } from "react-icons/bi";
@@ -100,16 +100,16 @@ const Navbar = () => {
   const links = (
     <>
       {showStickySearch && (
-        <li className="flex items-center border border-gray-300 rounded-md overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-blue-500">
+        <li className="flex items-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl overflow-hidden shadow-lg focus-within:ring-2 focus-within:ring-purple-400/50">
           <input
             type="text"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search..."
-            className="px-4 py-2 text-sm bg-white text-gray-700 placeholder-gray-400 focus:outline-none"
+            className="px-4 py-2 text-sm bg-transparent text-white placeholder-white/60 focus:outline-none"
           />
           <button
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm font-semibold transition duration-200"
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 text-sm font-semibold transition duration-300"
             aria-label="Search"
           >
             Go
@@ -118,18 +118,23 @@ const Navbar = () => {
       )}
 
       <li className="flex items-center gap-4">
-        <NavLink to="/">Home</NavLink>
+        <NavLink 
+          to="/" 
+          className="text-white/90 hover:text-white transition-colors duration-300 font-medium"
+        >
+          Home
+        </NavLink>
 
         <button
           onClick={() => setShowNotification((prev) => !prev)}
-          className="relative hidden md:inline-block"
+          className="relative hidden md:inline-block group"
           aria-label="Toggle Notifications"
         >
           {isAuthenticated && (
-            <IoMdNotifications className="text-xl cursor-pointer" />
+            <IoMdNotifications className="text-xl cursor-pointer text-white/80 group-hover:text-white transition-colors duration-300" />
           )}
           {unreadCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pingOnce">
+            <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse shadow-lg">
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}
@@ -139,20 +144,7 @@ const Navbar = () => {
           <NavLink
             to="/membership"
             onClick={() => setOpen(false)}
-            className="
-    px-5 py-2
-    bg-white
-    border border-blue-600
-    text-blue-600
-    font-semibold
-    rounded-md
-    shadow-sm
-    hover:bg-blue-50
-    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
-    transition
-    duration-200
-    ease-in-out
-  "
+            className="px-5 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl shadow-lg hover:bg-white/20 hover:border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400/50 transition duration-300 ease-in-out"
           >
             Membership
           </NavLink>
@@ -163,19 +155,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/login"
-            className="
-    px-5 py-2
-    bg-gradient-to-r from-blue-600 to-blue-500
-    text-white
-    font-semibold
-    rounded-full
-    shadow-md
-    hover:from-blue-700 hover:to-blue-600
-    focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75
-    transition
-    duration-300
-    ease-in-out
-  "
+            className="px-6 py-2 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 text-white font-semibold rounded-full shadow-lg hover:from-purple-700 hover:via-pink-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-400/50 transition duration-300 ease-in-out transform hover:scale-105"
           >
             Join Us
           </NavLink>
@@ -187,24 +167,24 @@ const Navbar = () => {
   if (loading) return <Loader />;
 
   return (
-    <nav className="bg-white border-b shadow-md px-4 py-2 relative z-50">
+    <nav className="bg-gradient-to-r from-slate-900/80 via-gray-900/80 to-slate-900/80 backdrop-blur-md border-b border-white/10 shadow-2xl px-4 py-3 relative z-50 sticky top-0">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* LEFT */}
         <div className="flex items-center gap-3">
           {isAuthenticated && (
             <div className="md:hidden">
-              <Hamburger toggled={isOpen} toggle={setOpen} />
+              <Hamburger toggled={isOpen} toggle={setOpen} color="white" />
             </div>
           )}
           <NavLink to={"/"}>
             <div className="flex items-center gap-2">
-              <img src={logo} alt="CodeCircle" className="h-10 w-auto" />
-              <p className="text-xl font-bold">CodeCircle</p>
+              <img src={logo} alt="CodeCircle" className="h-10 w-auto drop-shadow-lg" />
+              <p className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                CodeCircle
+              </p>
             </div>
           </NavLink>
         </div>
-
-        {/* MIDDLE */}
 
         {/* RIGHT */}
         <div className="flex items-center gap-3">
@@ -217,13 +197,14 @@ const Navbar = () => {
                 onClick={() => setShowNotification((prev) => !prev)}
                 className="relative"
               >
+                <IoMdNotifications className="text-2xl text-white/80" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pingOnce">
+                  <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">
                     {unreadCount > 9 ? "9+" : unreadCount}
                   </span>
                 )}
               </button>
-              <Hamburger toggled={isOpen} toggle={setOpen} />
+              <Hamburger toggled={isOpen} toggle={setOpen} color="white" />
             </div>
           )}
 
@@ -233,12 +214,12 @@ const Navbar = () => {
                 <div className="md:hidden flex items-center gap-3">
                   <button
                     onClick={() => setShowNotification((prev) => !prev)}
-                    className="relative"
+                    className="relative group"
                     aria-label="Toggle Notifications"
                   >
-                    <IoMdNotifications className="text-2xl" />
+                    <IoMdNotifications className="text-2xl text-white/80 group-hover:text-white transition-colors duration-300" />
                     {unreadCount > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pingOnce">
+                      <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">
                         {unreadCount > 9 ? "9+" : unreadCount}
                       </span>
                     )}
@@ -248,12 +229,12 @@ const Navbar = () => {
                   src={photoToShow}
                   alt={user.displayName || "User Avatar"}
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-300"
+                  className="w-10 h-10 rounded-full cursor-pointer border-2 border-white/30 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 />
               </div>
               {showDropdown && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50">
-                  <div className="px-4 py-2 text-sm text-gray-700 font-semibold">
+                <div className="absolute right-0 mt-2 w-48 bg-gray-900/90 backdrop-blur-md shadow-2xl rounded-xl py-2 z-50 border border-white/10">
+                  <div className="px-4 py-2 text-sm text-white/80 font-semibold border-b border-white/10">
                     @
                     {(user.displayName || user.email)
                       .toLowerCase()
@@ -262,7 +243,7 @@ const Navbar = () => {
 
                   <NavLink
                     to={isAdmin ? "/dashboard/admin" : "/dashboard"}
-                    className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100"
+                    className="flex items-center gap-2 px-4 py-2 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200"
                     onClick={() => setShowDropdown(false)}
                   >
                     <BiSolidDashboard /> Dashboard
@@ -272,7 +253,7 @@ const Navbar = () => {
                       handleLogout();
                       setShowDropdown(false);
                     }}
-                    className="flex items-center gap-2 px-4 py-2 w-full hover:bg-gray-100 text-left"
+                    className="flex items-center gap-2 px-4 py-2 w-full text-white/80 hover:bg-white/10 hover:text-white text-left transition-all duration-200"
                   >
                     <FiLogOut /> Log Out
                   </button>
@@ -285,28 +266,16 @@ const Navbar = () => {
 
       {/* MOBILE DROPDOWN */}
       {isOpen && (
-        <ul
-          className="
-      md:hidden
-      flex flex-col gap-3
-      mt-3
-      bg-white
-      shadow
-      rounded
-      px-4 py-3
-      font-medium
-      fixed top-[calc(theme('spacing.14'))] left-0 right-0
-      max-h-[calc(100vh - theme('spacing.14'))]
-      overflow-auto
-      z-50
-      animate-slideDown
-    "
-        >
+        <ul className="md:hidden flex flex-col gap-3 mt-3 bg-gray-900/90 backdrop-blur-md shadow-2xl rounded-xl px-4 py-3 font-medium fixed top-[calc(theme('spacing.16'))] left-4 right-4 max-h-[calc(100vh - theme('spacing.16'))] overflow-auto z-50 animate-slideDown border border-white/10">
           {links}
           {isAuthenticated && (
             <>
               <li>
-                <NavLink to="/membership" onClick={() => setOpen(false)}>
+                <NavLink 
+                  to="/membership" 
+                  onClick={() => setOpen(false)}
+                  className="text-white/90 hover:text-white transition-colors duration-300"
+                >
                   Membership
                 </NavLink>
               </li>
@@ -316,7 +285,7 @@ const Navbar = () => {
                     handleLogout();
                     setOpen(false);
                   }}
-                  className="w-full text-left"
+                  className="w-full text-left text-white/90 hover:text-white transition-colors duration-300"
                 >
                   Log Out
                 </button>
@@ -328,7 +297,7 @@ const Navbar = () => {
 
       {/* Notification Panel */}
       {showNotification && (
-        <div className="absolute right-4 top-full mt-2 w-72 bg-white shadow-lg rounded-md p-4 z-50">
+        <div className="absolute right-4 top-full mt-2 w-72 bg-gray-900/90 backdrop-blur-md shadow-2xl rounded-xl p-4 z-50 border border-white/10">
           <Notification
             userEmail={user?.email}
             onRead={handleNotificationsRead}
