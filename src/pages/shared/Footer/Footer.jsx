@@ -55,8 +55,6 @@ const Footer = () => {
               <div className="space-y-3">
                 {[
                   { name: "Home", href: "/" },
-                  { name: "Forum", href: "/forum" },
-                  { name: "Resources", href: "/resources" },
                   { name: "Membership", href: "/membership" },
                   { name: "Contact", href: "/contact" }
                 ].map((link, index) => (

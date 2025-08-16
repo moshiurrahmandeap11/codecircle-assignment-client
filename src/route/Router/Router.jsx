@@ -22,6 +22,7 @@ import AdminProtectedRoute from "../../Dashboards/AdminDashboard/AdminProtectedR
 import NotificationArchive from "../../components/NotificationArchive/NotificationArchive";
 import SearchResult from "../../components/SearchResult/SearchResult";
 import ErrorPage from "../../components/Error/ErrorPage";
+import Cookies from "../../components/Cookies/Cookies";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
       { path: "/terms", element: <Terms /> },
       { path: "/privacy", element: <PrivacyPolicy /> },
       { path: "/contact", element: <Contact /> },
+      {path: "/cookies", element: <Cookies></Cookies>},
       { path: "login", element: <Login /> },
       { path: "registration", element: <Registration /> },
       { path: "payment/:membershipid", element: <Payment /> },
