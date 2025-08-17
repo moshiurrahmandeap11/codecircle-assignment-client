@@ -5,6 +5,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { Sling as Hamburger } from "hamburger-react";
 import { BiSolidDashboard } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
+import { FaHome, FaUsers, FaInfo, FaCode, FaBlog } from "react-icons/fa";
 import UseAuthHook from "../../../hooks/contexthooks/UseAuthHook";
 import Loader from "../../../components/Loader/Loader";
 import toast from "react-hot-toast";
@@ -97,10 +98,11 @@ const Navbar = () => {
 
   const photoToShow = mongoUser?.photoURL || user?.photoURL;
 
-  const links = (
+  // Logged Out User Links (3 routes)
+  const loggedOutLinks = (
     <>
       {showStickySearch && (
-        <li className="flex items-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl overflow-hidden shadow-lg focus-within:ring-2 focus-within:ring-purple-400/50">
+        <li className="flex items-center backdrop-blur-sm bg-white/5 border border-white/10 rounded-xl overflow-hidden shadow-lg focus-within:ring-2 focus-within:ring-white/20">
           <input
             type="text"
             value={searchText}
@@ -109,7 +111,7 @@ const Navbar = () => {
             className="px-4 py-2 text-sm bg-transparent text-white placeholder-white/60 focus:outline-none"
           />
           <button
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 text-sm font-semibold transition duration-300"
+            className="bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-white px-4 py-2 text-sm font-medium transition duration-300"
             aria-label="Search"
           >
             Go
@@ -117,58 +119,192 @@ const Navbar = () => {
         </li>
       )}
 
-      <li className="flex items-center gap-4">
+      <li>
         <NavLink 
           to="/" 
-          className="text-white/90 hover:text-white transition-colors duration-300 font-medium"
+          className={({ isActive }) => 
+            `flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+              isActive 
+                ? 'text-white bg-white/10 backdrop-blur-sm border border-white/20' 
+                : 'text-gray-300 hover:text-white hover:bg-white/5'
+            }`
+          }
+          onClick={() => setOpen(false)}
         >
-          Home
+          <FaHome className="text-sm" /> Home
         </NavLink>
+      </li>
 
+      <li>
+        <NavLink 
+          to="/about" 
+          className={({ isActive }) => 
+            `flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+              isActive 
+                ? 'text-white bg-white/10 backdrop-blur-sm border border-white/20' 
+                : 'text-gray-300 hover:text-white hover:bg-white/5'
+            }`
+          }
+          onClick={() => setOpen(false)}
+        >
+          <FaInfo className="text-sm" /> About
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink 
+          to="/contact" 
+          className={({ isActive }) => 
+            `flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+              isActive 
+                ? 'text-white bg-white/10 backdrop-blur-sm border border-white/20' 
+                : 'text-gray-300 hover:text-white hover:bg-white/5'
+            }`
+          }
+          onClick={() => setOpen(false)}
+        >
+          <FaUsers className="text-sm" /> Contact
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="/login"
+          className="px-6 py-2 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl shadow-lg hover:from-white/30 hover:to-white/20 hover:border-white/30 focus:outline-none focus:ring-2 focus:ring-white/20 transition duration-300 ease-in-out"
+          onClick={() => setOpen(false)}
+        >
+          Join Us
+        </NavLink>
+      </li>
+    </>
+  );
+
+  // Logged In User Links (5 routes)
+  const loggedInLinks = (
+    <>
+      {showStickySearch && (
+        <li className="flex items-center backdrop-blur-sm bg-white/5 border border-white/10 rounded-xl overflow-hidden shadow-lg focus-within:ring-2 focus-within:ring-white/20">
+          <input
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="Search..."
+            className="px-4 py-2 text-sm bg-transparent text-white placeholder-white/60 focus:outline-none"
+          />
+          <button
+            className="bg-gradient-to-r from-white/20 to-white/10 hover:from-white/30 hover:to-white/20 text-white px-4 py-2 text-sm font-medium transition duration-300"
+            aria-label="Search"
+          >
+            Go
+          </button>
+        </li>
+      )}
+
+      <li>
+        <NavLink 
+          to="/" 
+          className={({ isActive }) => 
+            `flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+              isActive 
+                ? 'text-white bg-white/10 backdrop-blur-sm border border-white/20' 
+                : 'text-gray-300 hover:text-white hover:bg-white/5'
+            }`
+          }
+          onClick={() => setOpen(false)}
+        >
+          <FaHome className="text-sm" /> Home
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink 
+          to="/posts" 
+          className={({ isActive }) => 
+            `flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+              isActive 
+                ? 'text-white bg-white/10 backdrop-blur-sm border border-white/20' 
+                : 'text-gray-300 hover:text-white hover:bg-white/5'
+            }`
+          }
+          onClick={() => setOpen(false)}
+        >
+          <FaBlog className="text-sm" /> Posts
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink 
+          to="/community" 
+          className={({ isActive }) => 
+            `flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+              isActive 
+                ? 'text-white bg-white/10 backdrop-blur-sm border border-white/20' 
+                : 'text-gray-300 hover:text-white hover:bg-white/5'
+            }`
+          }
+          onClick={() => setOpen(false)}
+        >
+          <FaUsers className="text-sm" /> Community
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink 
+          to="/code-editor" 
+          className={({ isActive }) => 
+            `flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+              isActive 
+                ? 'text-white bg-white/10 backdrop-blur-sm border border-white/20' 
+                : 'text-gray-300 hover:text-white hover:bg-white/5'
+            }`
+          }
+          onClick={() => setOpen(false)}
+        >
+          <FaCode className="text-sm" /> Code Editor
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="/membership"
+          onClick={() => setOpen(false)}
+          className={({ isActive }) => 
+            `flex items-center gap-2 px-4 py-2 backdrop-blur-sm border rounded-xl font-medium transition-all duration-300 ${
+              isActive 
+                ? 'text-white bg-white/15 border-white/30' 
+                : 'text-gray-300 bg-white/5 border-white/10 hover:text-white hover:bg-white/10 hover:border-white/20'
+            }`
+          }
+        >
+          <FaUsers className="text-sm" /> Membership
+        </NavLink>
+      </li>
+
+      <li className="flex items-center">
         <button
           onClick={() => setShowNotification((prev) => !prev)}
-          className="relative hidden md:inline-block group"
+          className="relative group p-2 rounded-xl backdrop-blur-sm bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
           aria-label="Toggle Notifications"
         >
-          {isAuthenticated && (
-            <IoMdNotifications className="text-xl cursor-pointer text-white/80 group-hover:text-white transition-colors duration-300" />
-          )}
+          <IoMdNotifications className="text-xl text-gray-300 group-hover:text-white transition-colors duration-300" />
           {unreadCount > 0 && (
             <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse shadow-lg">
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}
         </button>
-
-        {isAuthenticated && (
-          <NavLink
-            to="/membership"
-            onClick={() => setOpen(false)}
-            className="px-5 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl shadow-lg hover:bg-white/20 hover:border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400/50 transition duration-300 ease-in-out"
-          >
-            Membership
-          </NavLink>
-        )}
       </li>
-
-      {!isAuthenticated && (
-        <li>
-          <NavLink
-            to="/login"
-            className="px-6 py-2 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 text-white font-semibold rounded-full shadow-lg hover:from-purple-700 hover:via-pink-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-400/50 transition duration-300 ease-in-out transform hover:scale-105"
-          >
-            Join Us
-          </NavLink>
-        </li>
-      )}
     </>
   );
 
   if (loading) return <Loader />;
 
   return (
-    <nav className="bg-gradient-to-r from-slate-900/80 via-gray-900/80 to-slate-900/80 backdrop-blur-md border-b border-white/10 shadow-2xl px-4 py-3 relative z-50 sticky top-0">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
+    <nav className="bg-gradient-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-xl border-b border-white/10 shadow-2xl px-4 py-3 relative z-50 sticky top-0">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-white/5 pointer-events-none"></div>
+      
+      <div className="relative max-w-7xl mx-auto flex justify-between items-center">
         {/* LEFT */}
         <div className="flex items-center gap-3">
           {isAuthenticated && (
@@ -179,7 +315,7 @@ const Navbar = () => {
           <NavLink to={"/"}>
             <div className="flex items-center gap-2">
               <img src={logo} alt="CodeCircle" className="h-10 w-auto drop-shadow-lg" />
-              <p className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <p className="text-xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
                 CodeCircle
               </p>
             </div>
@@ -188,36 +324,26 @@ const Navbar = () => {
 
         {/* RIGHT */}
         <div className="flex items-center gap-3">
-          <ul className="hidden md:flex items-center gap-6 font-medium">
-            {links}
+          <ul className="hidden md:flex items-center gap-3 font-medium">
+            {isAuthenticated ? loggedInLinks : loggedOutLinks}
           </ul>
+          
           {!isAuthenticated && (
             <div className="md:hidden flex items-center gap-3">
-              <button
-                onClick={() => setShowNotification((prev) => !prev)}
-                className="relative"
-              >
-                <IoMdNotifications className="text-2xl text-white/80" />
-                {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">
-                    {unreadCount > 9 ? "9+" : unreadCount}
-                  </span>
-                )}
-              </button>
               <Hamburger toggled={isOpen} toggle={setOpen} color="white" />
             </div>
           )}
 
           {isAuthenticated && (
             <div className="relative">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <div className="md:hidden flex items-center gap-3">
                   <button
                     onClick={() => setShowNotification((prev) => !prev)}
-                    className="relative group"
+                    className="relative group p-2 rounded-xl backdrop-blur-sm bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                     aria-label="Toggle Notifications"
                   >
-                    <IoMdNotifications className="text-2xl text-white/80 group-hover:text-white transition-colors duration-300" />
+                    <IoMdNotifications className="text-xl text-gray-300 group-hover:text-white transition-colors duration-300" />
                     {unreadCount > 0 && (
                       <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">
                         {unreadCount > 9 ? "9+" : unreadCount}
@@ -229,34 +355,37 @@ const Navbar = () => {
                   src={photoToShow}
                   alt={user.displayName || "User Avatar"}
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="w-10 h-10 rounded-full cursor-pointer border-2 border-white/30 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  className="w-10 h-10 rounded-full cursor-pointer border-2 border-white/20 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 />
               </div>
               {showDropdown && (
-                <div className="absolute right-0 mt-2 w-48 bg-gray-900/90 backdrop-blur-md shadow-2xl rounded-xl py-2 z-50 border border-white/10">
-                  <div className="px-4 py-2 text-sm text-white/80 font-semibold border-b border-white/10">
-                    @
-                    {(user.displayName || user.email)
-                      .toLowerCase()
-                      .replace(/\s+/g, "_")}
-                  </div>
+                <div className="absolute right-0 mt-2 w-48 backdrop-blur-xl bg-gray-900/90 border border-white/10 shadow-2xl rounded-2xl py-2 z-50 overflow-hidden">
+                  {/* Glass reflection effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent rounded-2xl pointer-events-none"></div>
+                  <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="px-4 py-2 text-sm text-gray-300 font-medium border-b border-white/10">
+                      @{(user.displayName || user.email).toLowerCase().replace(/\s+/g, "_")}
+                    </div>
 
-                  <NavLink
-                    to={isAdmin ? "/dashboard/admin" : "/dashboard"}
-                    className="flex items-center gap-2 px-4 py-2 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-200"
-                    onClick={() => setShowDropdown(false)}
-                  >
-                    <BiSolidDashboard /> Dashboard
-                  </NavLink>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setShowDropdown(false);
-                    }}
-                    className="flex items-center gap-2 px-4 py-2 w-full text-white/80 hover:bg-white/10 hover:text-white text-left transition-all duration-200"
-                  >
-                    <FiLogOut /> Log Out
-                  </button>
+                    <NavLink
+                      to={isAdmin ? "/dashboard/admin" : "/dashboard"}
+                      className="flex items-center gap-2 px-4 py-2 text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200"
+                      onClick={() => setShowDropdown(false)}
+                    >
+                      <BiSolidDashboard /> Dashboard
+                    </NavLink>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setShowDropdown(false);
+                      }}
+                      className="flex items-center gap-2 px-4 py-2 w-full text-gray-300 hover:bg-white/10 hover:text-white text-left transition-all duration-200"
+                    >
+                      <FiLogOut /> Log Out
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -266,42 +395,41 @@ const Navbar = () => {
 
       {/* MOBILE DROPDOWN */}
       {isOpen && (
-        <ul className="md:hidden flex flex-col gap-3 mt-3 bg-gray-900/90 backdrop-blur-md shadow-2xl rounded-xl px-4 py-3 font-medium fixed top-[calc(theme('spacing.16'))] left-4 right-4 max-h-[calc(100vh - theme('spacing.16'))] overflow-auto z-50 animate-slideDown border border-white/10">
-          {links}
-          {isAuthenticated && (
-            <>
-              <li>
-                <NavLink 
-                  to="/membership" 
-                  onClick={() => setOpen(false)}
-                  className="text-white/90 hover:text-white transition-colors duration-300"
-                >
-                  Membership
-                </NavLink>
-              </li>
-              <li>
+        <ul className="md:hidden flex flex-col gap-2 mt-3 backdrop-blur-xl bg-gray-900/90 border border-white/10 shadow-2xl rounded-2xl px-4 py-3 font-medium fixed top-[calc(theme('spacing.16'))] left-4 right-4 max-h-[calc(100vh - theme('spacing.16'))] overflow-auto z-50 animate-slideDown">
+          {/* Glass reflection effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent rounded-2xl pointer-events-none"></div>
+          
+          <div className="relative z-10">
+            {isAuthenticated ? loggedInLinks : loggedOutLinks}
+            {isAuthenticated && (
+              <li className="pt-2 border-t border-white/10 mt-2">
                 <button
                   onClick={() => {
                     handleLogout();
                     setOpen(false);
                   }}
-                  className="w-full text-left text-white/90 hover:text-white transition-colors duration-300"
+                  className="flex items-center gap-2 w-full px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
                 >
-                  Log Out
+                  <FiLogOut className="text-sm" /> Log Out
                 </button>
               </li>
-            </>
-          )}
+            )}
+          </div>
         </ul>
       )}
 
       {/* Notification Panel */}
       {showNotification && (
-        <div className="absolute right-4 top-full mt-2 w-72 bg-gray-900/90 backdrop-blur-md shadow-2xl rounded-xl p-4 z-50 border border-white/10">
-          <Notification
-            userEmail={user?.email}
-            onRead={handleNotificationsRead}
-          />
+        <div className="absolute right-4 top-full mt-2 w-72 backdrop-blur-xl bg-gray-900/90 border border-white/10 shadow-2xl rounded-2xl p-4 z-50 overflow-hidden">
+          {/* Glass reflection effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent rounded-2xl pointer-events-none"></div>
+          
+          <div className="relative z-10">
+            <Notification
+              userEmail={user?.email}
+              onRead={handleNotificationsRead}
+            />
+          </div>
         </div>
       )}
     </nav>

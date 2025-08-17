@@ -83,7 +83,7 @@ const Report = () => {
     return <p className="text-center text-gray-400 italic mt-10">No reports found.</p>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] p-6 text-gray-200 font-sans">
+    <div className="min-h-screen  p-6 text-gray-200 font-sans">
       <div className="overflow-x-auto mt-8 px-2 md:px-8" data-aos="fade-up">
         <table className="min-w-full text-sm bg-[rgba(30,41,59,0.3)] backdrop-blur-md rounded-xl border border-[rgba(255,255,255,0.05)] shadow-2xl">
           <thead className="bg-[rgba(17,24,39,0.5)] backdrop-blur-md text-left text-xs uppercase tracking-wide select-none text-gray-100">

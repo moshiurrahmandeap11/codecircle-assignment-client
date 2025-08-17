@@ -23,6 +23,7 @@ import NotificationArchive from "../../components/NotificationArchive/Notificati
 import SearchResult from "../../components/SearchResult/SearchResult";
 import ErrorPage from "../../components/Error/ErrorPage";
 import Cookies from "../../components/Cookies/Cookies";
+import AllPosts from "../../AllPosts/AllPosts";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
       { path: "/privacy", element: <PrivacyPolicy /> },
       { path: "/contact", element: <Contact /> },
       {path: "/cookies", element: <Cookies></Cookies>},
+      {path:"/posts", element: <AllPosts></AllPosts>},
       { path: "login", element: <Login /> },
       { path: "registration", element: <Registration /> },
       { path: "payment/:membershipid", element: <Payment /> },

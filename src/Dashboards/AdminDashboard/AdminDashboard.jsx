@@ -54,12 +54,12 @@ const AdminDashboard = () => {
 
   const getMembershipStatus = (user) => {
     if (user.badge?.toLowerCase() === "bronze") {
-      return <span className="text-red-600 font-semibold">Inactive</span>;
+      return <span className="text-red-400 font-semibold">Inactive</span>;
     }
     if (user.badge?.toLowerCase() === "gold") {
       const plan = getUserPlanTitle(user);
       return (
-        <span className="text-green-600 font-semibold">
+        <span className="text-green-400 font-semibold">
           Active {plan && `(${plan})`}
         </span>
       );
@@ -92,150 +92,177 @@ const handleMakeAdmin = async (userId, isAdmin) => {
   }
 
   return (
-    <section>
-        <header>
-            <Navbar></Navbar>
-        </header>
-    <div className="flex flex-col md:flex-row p-4 md:p-6 gap-6 min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <aside className="md:w-72 w-full bg-white backdrop-blur-sm p-4 md:p-6 rounded-2xl shadow-lg space-y-4 sticky top-0 z-20">
-        <h2 className="text-xl md:text-2xl font-bold text-indigo-700 mb-4">Admin Menu</h2>
-        <button
-          onClick={() => setView("admin-profile")}
-          className={`flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-indigo-100 transition ${
-            view === "admin-profile" ? "bg-indigo-300 font-semibold" : ""
-          }`}
-        >
-          <FaUsers /> Admin Profile
-        </button>
-        <button
-          onClick={() => setView("users")}
-          className={`flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-indigo-100 transition ${
-            view === "users" ? "bg-indigo-300 font-semibold" : ""
-          }`}
-        >
-          <FaUsers /> Manage Users
-        </button>
-        <button
-          onClick={() => setView("reports")}
-          className={`flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-indigo-100 transition ${
-            view === "reports" ? "bg-indigo-300 font-semibold" : ""
-          }`}
-        >
-          <FaFlag /> Reported Comments
-        </button>
-        <button
-          onClick={() => setView("announcement")}
-          className={`flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-indigo-100 transition ${
-            view === "announcement" ? "bg-indigo-300 font-semibold" : ""
-          }`}
-        >
-          <FaBullhorn /> Make Announcement
-        </button>
-        <button
-          onClick={() => setView("make-posts")}
-          className={`flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-indigo-100 transition ${
-            view === "make-posts" ? "bg-indigo-300 font-semibold" : ""
-          }`}
-        >
-          <FaBullhorn /> Add Posts
-        </button>
-        <button
-          onClick={() => setView("tags")}
-          className={`flex items-center gap-2 px-4 py-2 w-full rounded hover:bg-indigo-100 transition ${
-            view === "tags" ? "bg-indigo-300 font-semibold" : ""
-          }`}
-        >
-          <FaBullhorn /> Add Tags
-        </button>
-      </aside>
+    <section className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-purple-600/8 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-blue-600/8 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/4 w-72 h-72 bg-gray-600/5 rounded-full blur-3xl"></div>
+      </div>
 
-      {/* Main Content */}
-      <main className="flex-1 p-4 md:p-6 bg-white backdrop-blur-sm rounded-2xl shadow-lg overflow-auto max-h-screen">
-        {view === "users" && (
-          <section>
-            <h2
-              className="text-2xl md:text-3xl font-bold mb-6 text-indigo-700"
-              data-aos="fade-down"
+      <header className="relative z-10">
+        <Navbar></Navbar>
+      </header>
+      
+      <div className="relative flex flex-col md:flex-row p-4 md:p-6 gap-6 min-h-screen">
+        {/* Sidebar */}
+        <aside className="md:w-72 w-full backdrop-blur-xl bg-white/5 border border-white/10 p-4 md:p-6 rounded-3xl shadow-2xl space-y-4 sticky top-0 z-20 relative overflow-hidden">
+          {/* Glass reflection effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent rounded-3xl pointer-events-none"></div>
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+          
+          <div className="relative z-10">
+            <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-4">Admin Menu</h2>
+            
+            <button
+              onClick={() => setView("admin-profile")}
+              className={`flex items-center gap-3 px-4 py-3 w-full rounded-xl backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 ${
+                view === "admin-profile" ? "bg-white/15 border-white/20 text-white font-semibold" : "text-gray-300"
+              }`}
             >
-              Manage Users
-            </h2>
-            <div className="overflow-x-auto rounded">
-              <table className="w-full border text-sm md:text-base table-auto min-w-full">
-                <thead className="bg-indigo-100 text-left">
-                  <tr>
-                    <th className="p-3 border">Name</th>
-                    <th className="p-3 border">Email</th>
-                    <th className="p-3 border text-center">Admin</th>
-                    <th className="p-3 border text-center">Membership</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user) => (
-                    <tr
-                      key={user._id}
-                      className="hover:bg-indigo-50 transition duration-200"
-                    >
-                      <td className="p-3 border">{user.fullName || "N/A"}</td>
-                      <td className="p-3 border break-words">{user.email}</td>
-                      <td className="p-3 border text-center">
-                        <input
-                          type="checkbox"
-                          checked={user.role === "admin"}
-                          onChange={() =>
-                            handleMakeAdmin(user._id, user.role === "admin")
-                          }
-                          className="w-5 h-5 cursor-pointer"
-                        />
-                      </td>
-                      <td className="p-3 border text-center">
-                        {getMembershipStatus(user)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-        )}
-
-        {view === "reports" && (
-          <section>
-            <h2
-              className="text-2xl md:text-3xl font-bold mb-6 text-red-600"
-              data-aos="fade-left"
+              <FaUsers className="text-gray-300" /> Admin Profile
+            </button>
+            
+            <button
+              onClick={() => setView("users")}
+              className={`flex items-center gap-3 px-4 py-3 w-full rounded-xl backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 ${
+                view === "users" ? "bg-white/15 border-white/20 text-white font-semibold" : "text-gray-300"
+              }`}
             >
-              Reported Comments
-            </h2>
-            <Report />
-          </section>
-        )}
+              <FaUsers className="text-gray-300" /> Manage Users
+            </button>
+            
+            <button
+              onClick={() => setView("reports")}
+              className={`flex items-center gap-3 px-4 py-3 w-full rounded-xl backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 ${
+                view === "reports" ? "bg-white/15 border-white/20 text-white font-semibold" : "text-gray-300"
+              }`}
+            >
+              <FaFlag className="text-gray-300" /> Reported Comments
+            </button>
+            
+            <button
+              onClick={() => setView("announcement")}
+              className={`flex items-center gap-3 px-4 py-3 w-full rounded-xl backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 ${
+                view === "announcement" ? "bg-white/15 border-white/20 text-white font-semibold" : "text-gray-300"
+              }`}
+            >
+              <FaBullhorn className="text-gray-300" /> Make Announcement
+            </button>
+            
+            <button
+              onClick={() => setView("make-posts")}
+              className={`flex items-center gap-3 px-4 py-3 w-full rounded-xl backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 ${
+                view === "make-posts" ? "bg-white/15 border-white/20 text-white font-semibold" : "text-gray-300"
+              }`}
+            >
+              <FaBullhorn className="text-gray-300" /> Add Posts
+            </button>
+            
+            <button
+              onClick={() => setView("tags")}
+              className={`flex items-center gap-3 px-4 py-3 w-full rounded-xl backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 ${
+                view === "tags" ? "bg-white/15 border-white/20 text-white font-semibold" : "text-gray-300"
+              }`}
+            >
+              <FaBullhorn className="text-gray-300" /> Add Tags
+            </button>
+          </div>
+        </aside>
 
-        {view === "announcement" && (
-          <section>
-            <MakeAnnouncement />
-          </section>
-        )}
-        {view === "admin-profile" && (
-          <section>
-            <AdminProfile />
-          </section>
-        )}
-        {view === "make-posts" && (
-          <section>
-            <AddPost />
-          </section>
-        )}
-        {view === "tags" && (
-          <section>
-            <AddTags />
-          </section>
-        )}
-      </main>
-    </div>
-    <footer>
+        {/* Main Content */}
+        <main className="flex-1 p-4 md:p-6 backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl shadow-2xl overflow-auto max-h-screen relative">
+          {/* Glass reflection effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent rounded-3xl pointer-events-none"></div>
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+          
+          <div className="relative z-10">
+            {view === "users" && (
+              <section>
+                <h2
+                  className="text-2xl md:text-3xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent"
+                  data-aos="fade-down"
+                >
+                  Manage Users
+                </h2>
+                <div className="overflow-x-auto rounded-2xl backdrop-blur-sm bg-white/5 border border-white/10">
+                  <table className="w-full text-sm md:text-base table-auto min-w-full">
+                    <thead className="bg-white/10 backdrop-blur-sm border-b border-white/10">
+                      <tr>
+                        <th className="p-4 text-left text-gray-200 font-semibold">Name</th>
+                        <th className="p-4 text-left text-gray-200 font-semibold">Email</th>
+                        <th className="p-4 text-center text-gray-200 font-semibold">Admin</th>
+                        <th className="p-4 text-center text-gray-200 font-semibold">Membership</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map((user,) => (
+                        <tr
+                          key={user._id}
+                          className="border-b border-white/5 hover:bg-white/5 transition duration-300"
+                        >
+                          <td className="p-4 text-gray-300">{user.fullName || "N/A"}</td>
+                          <td className="p-4 text-gray-300 break-words">{user.email}</td>
+                          <td className="p-4 text-center">
+                            <input
+                              type="checkbox"
+                              checked={user.role === "admin"}
+                              onChange={() =>
+                                handleMakeAdmin(user._id, user.role === "admin")
+                              }
+                              className="w-5 h-5 cursor-pointer accent-white/20"
+                            />
+                          </td>
+                          <td className="p-4 text-center">
+                            {getMembershipStatus(user)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            )}
+
+            {view === "reports" && (
+              <section>
+                <h2
+                  className="text-2xl md:text-3xl font-bold mb-6 bg-gradient-to-r from-red-400 via-red-300 to-red-500 bg-clip-text text-transparent"
+                  data-aos="fade-left"
+                >
+                  Reported Comments
+                </h2>
+                <Report />
+              </section>
+            )}
+
+            {view === "announcement" && (
+              <section>
+                <MakeAnnouncement />
+              </section>
+            )}
+            {view === "admin-profile" && (
+              <section>
+                <AdminProfile />
+              </section>
+            )}
+            {view === "make-posts" && (
+              <section>
+                <AddPost />
+              </section>
+            )}
+            {view === "tags" && (
+              <section>
+                <AddTags />
+              </section>
+            )}
+          </div>
+        </main>
+      </div>
+      
+      <footer className="relative z-10">
         <Footer></Footer>
-    </footer>
+      </footer>
     </section>
   );
 };

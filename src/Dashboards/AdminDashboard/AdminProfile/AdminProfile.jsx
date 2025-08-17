@@ -55,7 +55,7 @@ const AdminProfile = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] p-6 text-gray-200 font-sans">
+    <section className="min-h-screen  p-6 text-gray-200 font-sans">
       <div
         className="max-w-4xl mx-auto bg-[rgba(30,41,59,0.3)] backdrop-blur-md rounded-xl shadow-2xl p-6 md:p-10 border border-[rgba(255,255,255,0.05)]"
         data-aos="fade-up"

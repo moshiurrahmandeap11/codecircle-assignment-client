@@ -28,7 +28,7 @@ const AddTags = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0f172a] to-[#1e293b] p-6 flex items-center justify-center">
+    <div className="min-h-screen  p-6 flex items-center justify-center">
       <div className="mt-12 p-6 bg-[rgba(30,41,59,0.3)] backdrop-blur-md rounded-xl shadow-2xl text-gray-200 w-full max-w-md border border-[rgba(255,255,255,0.05)]">
         <h3 className="text-xl font-bold mb-4 text-gray-100">Add New Tag</h3>
 
