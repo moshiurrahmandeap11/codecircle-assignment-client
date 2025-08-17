@@ -24,6 +24,8 @@ import SearchResult from "../../components/SearchResult/SearchResult";
 import ErrorPage from "../../components/Error/ErrorPage";
 import Cookies from "../../components/Cookies/Cookies";
 import AllPosts from "../../AllPosts/AllPosts";
+import CodeEditor from "../../components/CodeEditor/CodeEditor";
+import About from "../../components/About/About";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,8 @@ const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       {path: "/cookies", element: <Cookies></Cookies>},
       {path:"/posts", element: <AllPosts></AllPosts>},
+      {path: "/code-editor", element: <CodeEditor></CodeEditor>},
+      {path: "/about", element: <About></About>},
       { path: "login", element: <Login /> },
       { path: "registration", element: <Registration /> },
       { path: "payment/:membershipid", element: <Payment /> },
