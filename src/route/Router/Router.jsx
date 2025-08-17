@@ -26,6 +26,7 @@ import Cookies from "../../components/Cookies/Cookies";
 import AllPosts from "../../AllPosts/AllPosts";
 import CodeEditor from "../../components/CodeEditor/CodeEditor";
 import About from "../../components/About/About";
+import Community from "../../components/Community/Community";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
       {path:"/posts", element: <AllPosts></AllPosts>},
       {path: "/code-editor", element: <CodeEditor></CodeEditor>},
       {path: "/about", element: <About></About>},
+      {path: "/community", element: <Community></Community>},
       { path: "login", element: <Login /> },
       { path: "registration", element: <Registration /> },
       { path: "payment/:membershipid", element: <Payment /> },
