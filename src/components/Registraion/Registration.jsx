@@ -98,7 +98,7 @@ const Registration = () => {
         className="bg-white/10 backdrop-blur-lg shadow-2xl rounded-2xl w-full max-w-lg p-8 border border-white/20 hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] transition-all duration-300 relative overflow-hidden"
       >
         {/* Glowing effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" /> */}
 
         <h2 className="text-3xl font-bold text-center mb-6 text-white drop-shadow-lg relative z-10">
           Create Your Account

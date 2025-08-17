@@ -22,57 +22,46 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async ({ email, password }) => {
+ const onSubmit = async ({ email, password }) => {
+  try {
+    const res = await loginUser(email, password);
+    toast.success('Login successful!');
+    navigate(from, { replace: true });
+  } catch (err) {
+    toast.error(err.message);
+    console.error('❌ Login error:', err);
+  }
+};
+
+const handleGoogleLogin = async () => {
+  try {
+    const res = await googleUser();
+    const user = res.user;
+
     try {
-      const res = await loginUser(email, password);
-
+      // শুধু users collection এ save হবে
       await axios.post(
-        'https://code-circle-server-three.vercel.app/jwt',
-        { email: res.user.email },
-        { withCredentials: true } 
+        'https://code-circle-server-three.vercel.app/users',
+        {
+          uid: user.uid,
+          email: user.email,
+          fullName: user.displayName || 'Anonymous',
+          photoURL: user.photoURL || '',
+          badge: 'Bronze',
+        }
       );
-      toast.success('Login successful!');
-      navigate(from, { replace: true });
-    } catch (err) {
-      toast.error(err.message);
-      console.error('❌ Login error:', err);
+    } catch (backendErr) {
+      console.warn('⚠ Backend user POST failed:', backendErr);
     }
-  };
 
-  const handleGoogleLogin = async () => {
-    try {
-      const res = await googleUser();
-      const user = res.user;
+    toast.success('Logged in with Google!');
+    navigate(from, { replace: true });
+  } catch (err) {
+    toast.error('Google login failed');
+    console.error('❌ Google Login Error:', err);
+  }
+};
 
-      try {
-        await axios.post(
-          'https://code-circle-server-three.vercel.app/users',
-          {
-            uid: user.uid,
-            email: user.email,
-            fullName: user.displayName || 'Anonymous',
-            photoURL: user.photoURL || '',
-            badge: 'Bronze',
-          },
-          { withCredentials: true }
-        );
-      } catch (backendErr) {
-        console.warn(' Backend user POST failed:', backendErr);
-      }
-
-      await axios.post(
-        'https://code-circle-server-three.vercel.app/jwt',
-        { email: user.email },
-        { withCredentials: true }
-      );
-
-      toast.success('Logged in with Google!');
-      navigate(from, { replace: true });
-    } catch (err) {
-      toast.error('Google login failed');
-      console.error(' Google Login Error:', err);
-    }
-  };
 
   if (loading) return <Loader />;
 
